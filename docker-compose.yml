@@ -1,0 +1,26 @@
+version: '3'
+services:
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: scalewithagileDB
+      WORDPRESS_DB_USER: doronkatz
+      WORDPRESS_DB_PASSWORD: $MYSQL_PASSWORD
+    volumes:
+      - ./wp-content:/var/www/html/wp-content
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: scalewithagileDB
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
